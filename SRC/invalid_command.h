@@ -5,7 +5,6 @@
 
 class InvalidCommand : public std::runtime_error
 {
-
 public:
 	InvalidCommand();
 

@@ -5,9 +5,8 @@
 
 class Quit : public ICommand
 {
-
 public:
-	void execute();
+	/*virtual*/void execute();
 };
 
 

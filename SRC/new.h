@@ -7,9 +7,8 @@
 
 class New : public ICommand
 {
-
 public:
-	void execute();
+	/*virtual*/void execute();
 };
 
 

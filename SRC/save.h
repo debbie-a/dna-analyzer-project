@@ -7,9 +7,8 @@
 
 class Save : public ICommand
 {
-
 public:
-	void execute();
+	/*virtual*/void execute();
 };
 
 
