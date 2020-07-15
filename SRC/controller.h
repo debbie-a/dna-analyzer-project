@@ -47,7 +47,7 @@ inline void Controller::run() const
 {
 	while(true)
 	{
-		m_cli->executeCommand();
+		m_cli->executeCommandLine();
 	}
 }
 

@@ -7,7 +7,7 @@
 #include "save.h"
 #include "new.h"
 #include "quit.h"
-#include "invalid_command.h"
+#include "../Exceptions/invalid_command.h"
 #include "icommand.h"
 
 class CommandCollection

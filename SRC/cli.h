@@ -60,7 +60,7 @@ class CLI
 public:
 	CLI(IRead *reader, IWrite *writer);
 
-	void executeCommand();
+	void executeCommandLine();
 
 private:
 	IRead *m_reader;
@@ -73,7 +73,7 @@ inline CLI::CLI(IRead *reader, IWrite *writer):m_reader(reader),m_writer(writer)
 {
 }
 
-inline void CLI::executeCommand()
+inline void CLI::executeCommandLine()
 {
 	std::string input, output;
 	input = m_reader->read();
