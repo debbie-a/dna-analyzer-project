@@ -1,20 +1,19 @@
 #ifndef __LOAD_H__
 #define __LOAD_H__
 
-
-#include <iostream>
 #include "icommand.h"
 
 class Load : public ICommand
 {
+
 public:
-	/*virtual*/void execute();
+	/*virtual*/std::string execute(char **argv);
 };
 
 
-inline void Load::execute()
+inline std::string Load::execute(char **argv)
 {
-	std::cout << "Hello from Load!" << std::endl;
+	return "Hello from Load!";
 }
 
 

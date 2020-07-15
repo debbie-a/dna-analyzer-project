@@ -1,20 +1,19 @@
 #ifndef __SAVE_H__
 #define __SAVE_H__
 
-
-#include <iostream>
 #include "icommand.h"
 
 class Save : public ICommand
 {
+
 public:
-	/*virtual*/void execute();
+	/*virtual*/std::string execute(char **argv);
 };
 
 
-inline void Save::execute()
+inline std::string Save::execute(char **argv)
 {
-	std::cout << "Hello from Save!" << std::endl;
+	return "Hello from Save!";
 }
 
 #endif /*__SAVE_H__*/
