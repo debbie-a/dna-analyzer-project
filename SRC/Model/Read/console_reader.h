@@ -13,7 +13,7 @@ public:
 
 inline std::string ConsoleReader::read()
 {	
-	std::cout << " >> ";
+	std::cout << " > cmd >>> ";
 	std::string input;
 	getline(std::cin, input);
 

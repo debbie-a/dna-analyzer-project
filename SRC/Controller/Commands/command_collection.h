@@ -7,20 +7,20 @@
 #include "save.h"
 #include "new.h"
 #include "quit.h"
-#include "../Exceptions/invalid_command.h"
+#include "invalid_command.h"
 #include "icommand.h"
 
 class CommandCollection
 {
 
 public:
-	static ICommand* getCommand(const std::string& command);
+	static SharedPtr<ICommand> getCommand(const std::string& command);
 
 private:
-	static std::map<const std::string, ICommand*> commandMap;
+	static std::map<const std::string, SharedPtr<ICommand>> commandMap;
 };
 
-inline ICommand* CommandCollection::getCommand(const std::string& command)
+inline SharedPtr<ICommand> CommandCollection::getCommand(const std::string& command)
 {
 	if (!commandMap.count(command))
 		throw InvalidCommand();
