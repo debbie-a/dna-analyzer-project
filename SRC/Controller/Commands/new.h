@@ -38,14 +38,20 @@ inline std::string New::execute(const std::vector<std::string>& params, bool *fl
 		name = "seq" + ss.str();
 		counter++; 
 	}
+	try
+	{
+		SharedPtr<DNAData> dnaData(new DNAData(params[0], name));
+		DNACollection::addDNA(dnaData);
+		std:: stringstream output;
+		output << "[" << dnaData ->getID() << "] " <<  name << ": " << params[0];
 
-	SharedPtr<DNAData> dnaData(new DNAData(params[0], name));
-	DNACollection::addDNA(dnaData);
-
-	std:: stringstream output;
-	output << "[" << dnaData ->getID() << "] " <<  name << ": " << params[0];
-
-	return output.str();
+		return output.str();
+	}
+	catch(InvalidNucleotide& e)
+	{
+		counter--;
+		throw;
+	}
 	
 }
 
