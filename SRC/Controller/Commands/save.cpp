@@ -63,7 +63,7 @@ std::string Save::execute(const std::vector<std::string>& params, bool *flag)
 	
 	//one parameter was sent. need to create file name out of seq name
 	if(params.size() == 1)
-		fileName = dnaData->getName() + ".txt";
+		fileName = dnaData->getName() + ".rawdna";
 	
 	//writing to file
 	SharedPtr<IWrite> writer(new FileWriter(fileName));
