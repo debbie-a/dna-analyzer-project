@@ -11,7 +11,7 @@ int main()
 	SharedPtr<IRead> reader(new ConsoleReader);
 	SharedPtr<IWrite> writer(new ConsoleWriter);
 	SharedPtr<IGUI> gui(new CLI(reader, writer));
-
+	
 	Controller controller(gui);
 
 	controller.run();
