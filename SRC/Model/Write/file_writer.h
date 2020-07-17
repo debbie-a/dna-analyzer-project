@@ -24,7 +24,7 @@ inline FileWriter::FileWriter(const std::string& fileName):m_fileName(fileName)
 inline void FileWriter::write(const std::string& str)
 {
 	std::ofstream myfile;
-  	myfile.open(m_fileName.c_str());
+  	myfile.open(m_fileName);
 	if (myfile.is_open()) 
   	{
 		myfile << str;

@@ -7,8 +7,8 @@
 #include "save.h"
 #include "new.h"
 #include "quit.h"
-#include "invalid_command.h"
 #include "icommand.h"
+#include "../../Model/shared_pointer.h"
 
 class CommandCollection
 {
@@ -20,12 +20,6 @@ private:
 	static std::map<const std::string, SharedPtr<ICommand>> commandMap;
 };
 
-inline SharedPtr<ICommand> CommandCollection::getCommand(const std::string& command)
-{
-	if (!commandMap.count(command))
-		throw InvalidCommand();
 
-	return commandMap[command];
-}
 
 #endif /*__COMMAND_COLLECTION_H__*/

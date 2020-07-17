@@ -1,4 +1,5 @@
 #include "command_collection.h"
+#include "invalid_command.h"
 
 
 std::map<const std::string, SharedPtr<ICommand>> CommandCollection::commandMap = 
@@ -9,3 +10,10 @@ std::map<const std::string, SharedPtr<ICommand>> CommandCollection::commandMap =
 	{"quit", SharedPtr<ICommand>(new Quit)}
 };
 
+SharedPtr<ICommand> CommandCollection::getCommand(const std::string& command)
+{
+	if (!commandMap.count(command))
+		throw InvalidCommand();
+
+	return commandMap[command];
+}

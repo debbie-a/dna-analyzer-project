@@ -11,9 +11,4 @@ public:
 };
 
 
-inline std::string Save::execute(const std::vector<std::string>& params, bool *flag)
-{
-	return "Hello from Save!";
-}
-
 #endif /*__SAVE_H__*/
