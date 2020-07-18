@@ -2,6 +2,7 @@
 #include "new.h"
 #include "../../Model/DNA/dna_collection.h"
 #include "auxiliary_functions.h"
+#include "invalid_arguments.h"
 
 
 
@@ -9,7 +10,7 @@ std::string New::execute(const std::vector<std::string>& params, bool *flag)
 {
 	//invalid number of arguments
 	if(params.size() == 0 || params.size() > 2) 
-		throw std::runtime_error("invalid number of arguments");
+		throw InvalidArguments("invalid number of arguments");
 
     	static size_t counter = 1;
     	std::string name;
@@ -19,6 +20,7 @@ std::string New::execute(const std::vector<std::string>& params, bool *flag)
 	{
 		name = getName(params[1]);
 	}
+
 	//one parameter was sent. need to create default name
 	else
 	{

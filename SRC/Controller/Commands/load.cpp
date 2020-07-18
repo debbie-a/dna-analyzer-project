@@ -4,6 +4,7 @@
 #include "new.h"
 #include "../../Model/DNA/dna_collection.h"
 #include "../../Model/Read/file_reader.h"
+#include "invalid_arguments.h"
 
 
 
@@ -11,13 +12,19 @@ std::string Load::execute(const std::vector<std::string>& params, bool *flag)
 {
 	//invalid number of arguments
 	if(params.size() == 0 || params.size() > 2)
-		throw std::runtime_error("invalid number of arguments");
+		throw InvalidArguments("invalid number of arguments");
 	
 	std::string name;
 	
 	//a name was given
 	if(params.size() == 2)
 	{
+		
+		size_t i = params[0].find(".");
+
+		if(i == std::string::npos)
+			throw InvalidArguments("invalid file name");
+
 		name = params[1];
 	}
 
@@ -27,7 +34,7 @@ std::string Load::execute(const std::vector<std::string>& params, bool *flag)
 		size_t i = params[0].find(".");
 
 		if(i == std::string::npos)
-			throw std::runtime_error("invalid file name");
+			throw InvalidArguments("invalid file name");
 	
 		std::string tmp(params[0].begin(), params[0].begin() + i);
 		name = "@" + tmp;

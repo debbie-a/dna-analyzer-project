@@ -3,7 +3,7 @@
 
 #include <string>
 #include "dna_sequence.h"
-#include "../shared_pointer.h"
+#include "../../Controller/shared_pointer.h"
 
 
 class DNAData

@@ -19,7 +19,7 @@ inline InvalidDNAData::InvalidDNAData():std::runtime_error("")
 
 inline const char* InvalidDNAData::what() const throw()
 {
-        return "Invalid DNA data!!!";
+        return "Invalid DNA data";
 }
 
 #endif /*__INVALID_COMMAND_H__*/

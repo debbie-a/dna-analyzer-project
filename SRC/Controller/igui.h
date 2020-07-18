@@ -5,7 +5,7 @@ class IGUI
 {
 
 public:
-	virtual void executeCommand() = 0;
+	virtual void executeCommands() = 0;
 };
 
 #endif /*__IGUI_H__*/

@@ -4,12 +4,13 @@
 #include "../../Model/DNA/dna_collection.h"
 #include "../../Model/Write/file_writer.h"
 #include "../../Model/DNA/invalid_dna_data.h"
+#include "invalid_arguments.h"
 
 std::string Save::execute(const std::vector<std::string>& params, bool *flag)
 {
 	//invalid number of arguments
 	if(params.size() == 0 || params.size() > 2)
-		throw std::runtime_error("invalid number of arguments");
+		throw InvalidArguments("invalid number of arguments");
 
 	std::string fileName;
 	SharedPtr<DNAData> dnaData;
@@ -20,7 +21,7 @@ std::string Save::execute(const std::vector<std::string>& params, bool *flag)
 		size_t i = params[1].find(".");
 
 		if(i == std::string::npos)
-			throw std::runtime_error("invalid file name");
+			throw InvalidArguments("invalid file name");
 
 		fileName = params[1];
 	}
@@ -58,7 +59,7 @@ std::string Save::execute(const std::vector<std::string>& params, bool *flag)
 	}
 	else 
 	{
-		throw std::runtime_error("invalid input");
+		throw InvalidArguments("invalid input");
 	}
 	
 	//one parameter was sent. need to create file name out of seq name

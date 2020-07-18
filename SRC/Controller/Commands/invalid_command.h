@@ -19,7 +19,7 @@ inline InvalidCommand::InvalidCommand():std::runtime_error("")
 
 inline const char* InvalidCommand::what() const throw()
 {
-        return "Invalid Command!!!";
+        return "Invalid Command";
 }
 
 #endif /*__INVALID_COMMAND_H__*/

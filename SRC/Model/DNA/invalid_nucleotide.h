@@ -18,6 +18,6 @@ inline InvalidNucleotide::InvalidNucleotide():std::runtime_error("")
 
 inline const char* InvalidNucleotide::what() const throw()
 {
-        return "Invalid DNA sequence!!!";
+        return "Invalid DNA sequence";
 }
 #endif /*__INVALID_NUCLEOTIDE_H__*/

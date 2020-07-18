@@ -8,7 +8,7 @@
 #include "new.h"
 #include "quit.h"
 #include "icommand.h"
-#include "../../Model/shared_pointer.h"
+#include "../shared_pointer.h"
 
 class CommandCollection
 {

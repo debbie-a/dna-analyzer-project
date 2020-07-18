@@ -2,8 +2,9 @@
 #include <vector>
 #include <sstream>
 #include <cstring>
-#include "cli.h"
+#include "command_line.h"
 #include "Commands/invalid_command.h"
+#include "Commands/invalid_arguments.h"
 #include "Commands/command_collection.h"
 
 
@@ -26,7 +27,7 @@ inline static std::vector<std::string> parseString(const std::string& s)
 
 /*------------------------------------------------------------------------*/
 
-void CLI::executeCommand()
+void CommandLine::executeCommands()
 {
 	bool flag = true;
 	while(flag)
@@ -44,6 +45,10 @@ void CLI::executeCommand()
 				m_writer->write(output);
 		}
 		catch(InvalidCommand& e)
+		{
+			m_writer->write(e.what());
+		}
+		catch(InvalidArguments& e)
 		{
 			m_writer->write(e.what());
 		}

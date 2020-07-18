@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <iostream>
 #include "quit.h"
+#include "invalid_arguments.h"
 
 std::string Quit::execute(const std::vector<std::string>& params, bool *flag)
 {
