@@ -45,32 +45,21 @@ std::string Load::execute(const std::vector<std::string>& params, bool *flag)
 	SharedPtr<IRead> reader(new FileReader(params[0]));
 	std::string seq = reader->read();
 
-	//taking care of sequences longer than 40
-	bool seqLongerThan40 = false;
-	
-	if(seq.length() > 40)
-	{
-		seqLongerThan40 = true;
-		std::string first32(seq.begin(), seq.begin() + 35);
-		std::string last3(seq.end() - 3, seq.end());
-		first32 += "AAA" + last3; // just a placeholder soon will be changed to an ellipsis....
-		
-		seq = first32;
-	}
-	
 	//creating new sequence
 	SharedPtr<ICommand> new_(new New);
 	std:: string output;
 	std::vector<std::string> vec = {seq, name};
+	
 	output = new_->execute(vec, flag);
 
-	//changing the "AAA" placeholder with an ellipsis
-	if(seqLongerThan40)
+	if(seq.length() > 40)
 	{
-		output[output.length() - 4] = '.';
-		output[output.length() - 5] = '.';
-		output[output.length() - 6] = '.';
+		size_t i = output.find(":");
+		std::string tmp(output.begin(), output.begin() + i + 34);
+		std::string last3(output.end() - 3, output.end());
+		tmp += "..." + last3; 
 		
+		output = tmp;
 	}
 
 	return output;
