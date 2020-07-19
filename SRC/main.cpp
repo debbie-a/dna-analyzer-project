@@ -12,10 +12,10 @@ int main()
 	SharedPtr<IWrite> writer(new ConsoleWriter);
 	SharedPtr<IGUI> gui(new CommandLine(reader, writer));
 	
-	//Controller controller(gui);
+	Controller controller(gui);
 
-	//controller.run();
-	//controller.shutDown();
+	controller.run();
+	controller.shutDown();
 	
 	return 0;
 }

@@ -134,6 +134,7 @@ inline DNASequence& DNASequence::operator=(const DNASequence &other)
 		for(size_t i=0; i < other.getLength(); i++)
 			m_sequence[i] = NucleotideType(other.getSequenceAsString().c_str()[i]);;
 	}
+
 	return *this;
 }
 
@@ -148,6 +149,7 @@ inline std::string DNASequence::getSequenceAsString() const
 	std::string sequence;
 	for(size_t i=0; i< getLength(); i++)
 		sequence += (*this)[i].getType();
+
 	return sequence;
 }
 
@@ -162,6 +164,7 @@ inline const DNASequence::NucleotideType& DNASequence::operator[](size_t index) 
 	{
 		throw std::out_of_range("bad index error");
 	}
+
 	return m_sequence[index];
 }
 
@@ -171,6 +174,7 @@ inline DNASequence::NucleotideType& DNASequence::operator[](size_t index)
 	{
 		throw std::out_of_range("bad index error");
 	}
+
 	return m_sequence[index];
 }
 inline void DNASequence::writeToFile(const std::string &fileName)
@@ -192,13 +196,17 @@ inline DNASequence DNASequence::slice(long int start, long int end)
 {
 	if(start < 0)
 		start = getLength() + start;
+
 	if(end < 0 )
 		end = getLength() + end;
+
 	if(((size_t)end > getLength()) || ((size_t)start >= getLength()) || (start > end))
 		throw std::out_of_range("bad index error");
+
 	std::string slicedSequence;
 	for(size_t i = start; i < (size_t)end; i++)
-		slicedSequence += m_sequence[i];        
+		slicedSequence += m_sequence[i]; 
+       
 	return DNASequence(slicedSequence);		
 		
 }
@@ -208,6 +216,7 @@ inline DNASequence DNASequence::pair()
 	std::string pairedSequence;
 	for(size_t i = getLength(); i > 0; i--)
 		pairedSequence += m_sequence[i-1].getNucleotidePair(); 
+
 	return DNASequence(pairedSequence);
 }
 
@@ -217,8 +226,10 @@ inline size_t DNASequence::find(const std::string& subSequence, size_t startInde
 	{
 		DNASequence tmp = getSequenceAsString();
 		if(tmp.slice(i,i+subSequence.length()).getSequenceAsString() == subSequence)
+
 			return i;
 	}
+
 	return std::string::npos;
 }
 inline size_t DNASequence::count(const std::string& subSequence) const
@@ -243,6 +254,7 @@ inline DNASequence::NucleotideType& DNASequence::NucleotideType::operator=(char 
 		throw InvalidNucleotide();
 	}
 	m_type = type;
+
 	return *this;
 }
 
@@ -258,6 +270,7 @@ inline char DNASequence::NucleotideType::getNucleotidePair() const
 	mapPairs['T'] = 'A';
 	mapPairs['G'] = 'C';
 	mapPairs['C'] = 'G';
+
 	return mapPairs[this->getType()];
 }
 
@@ -269,12 +282,14 @@ inline DNASequence::NucleotideType::operator char()
 inline std::ostream& operator<<(std::ostream& cout, const DNASequence::NucleotideType& nucleotide)
 {
 	cout << nucleotide.getType();
+
 	return cout;
 }
 
 inline std::ostream& operator<<(std::ostream& cout, const DNASequence& sequence)
 {
 	cout << sequence.getSequenceAsString();
+
     	return cout;
 }
 

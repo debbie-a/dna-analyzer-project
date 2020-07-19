@@ -1,7 +1,7 @@
 #include <sstream>
 #include "new.h"
 #include "../../Model/DNA/dna_collection.h"
-#include "auxiliary_functions.h"
+#include "../utils.h"
 #include "invalid_arguments.h"
 
 

@@ -1,4 +1,4 @@
-#include "auxiliary_functions.h"
+#include "utils.h"
 #include <stdexcept>
 #include <sstream>
 
@@ -18,4 +18,19 @@ std::string getOutput(size_t id, std::string name, std::string seq)
 	output << "[" << id << "] " <<  name << ": " << seq;
 
 	return output.str();
+}
+
+std::vector<std::string> parseString(const std::string& s)
+{
+	std::vector<std::string> vec;
+	std::istringstream ss(s); 
+    	while (ss)
+	{ 
+        	std::string word; 
+        	ss >> word;
+		vec.push_back(word);
+	}
+
+	return vec;
+   
 }

@@ -1,31 +1,10 @@
-#include <string>
-#include <vector>
 #include <sstream>
 #include <cstring>
 #include "command_line.h"
 #include "Commands/invalid_command.h"
 #include "Commands/invalid_arguments.h"
 #include "Commands/command_collection.h"
-
-
-/*----------------------Auxiliary functions-------------------------------*/
-
-inline static std::vector<std::string> parseString(const std::string& s)
-{
-	std::vector<std::string> vec;
-	std::istringstream ss(s); 
-    	while (ss)
-	{ 
-        	std::string word; 
-        	ss >> word;
-		vec.push_back(word);
-	}
-
-	return vec;
-   
-}
-
-/*------------------------------------------------------------------------*/
+#include "utils.h"
 
 void CommandLine::executeCommands()
 {
