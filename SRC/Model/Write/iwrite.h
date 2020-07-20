@@ -7,6 +7,8 @@ class IWrite
 {
 
 public:
+	virtual ~IWrite(){}
+
 	virtual  void write(const std::string&) = 0;
 };
 

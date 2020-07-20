@@ -7,6 +7,8 @@ class IRead
 {
 
 public:
+	virtual ~IRead(){}
+
 	virtual std::string read() = 0;
 };
 

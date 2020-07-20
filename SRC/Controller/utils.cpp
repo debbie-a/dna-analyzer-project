@@ -1,7 +1,8 @@
 #include "utils.h"
 #include <stdexcept>
 #include <sstream>
-
+#include "../Model/DNA/invalid_dna_data.h"
+#include "../Model/DNA/dna_collection.h"
 
 std::string getName(std::string str)
 {
@@ -34,3 +35,33 @@ std::vector<std::string> parseString(const std::string& s)
 	return vec;
    
 }
+
+std::string getNameFromFileName(std::string str)
+{
+	size_t counter = 0;
+	std::stringstream ss;
+
+	while(true)
+	{
+		ss.str("");
+		ss << counter;
+		try
+		{
+			if(!counter)
+				DNACollection::getDNA(str);
+
+			else
+				DNACollection::getDNA(str + "_" + ss.str());
+
+		}
+		catch(InvalidDNAData& e)
+		{
+			break;
+		}
+		
+		counter++;
+
+	}
+	return counter ? str + "_" + ss.str() : str;
+}
+

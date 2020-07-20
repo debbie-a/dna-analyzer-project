@@ -3,7 +3,7 @@
 
 
 std::map<size_t, std::string> DNACollection::mapIdToName;
-std::map<const std::string, SharedPtr<DNAData>> DNACollection::mapNameToDNAData;
+std::map<const std::string, SharedPtr<DNAData> > DNACollection::mapNameToDNAData;
 
 void DNACollection::addDNA(SharedPtr<DNAData> dnaData)
 {

@@ -23,9 +23,9 @@ inline FileReader::FileReader(const std::string& fileName):m_fileName(fileName)
 
 inline std::string FileReader::read()
 {
-	std::ifstream myFile(m_fileName);
+	std::ifstream myFile(m_fileName.c_str());
 	std::string line;
-	std::string inputFromFile;
+	std::string inputFromFile; 
 	if (myFile.is_open())
  	{
    		while (getline(myFile,line))

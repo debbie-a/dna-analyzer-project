@@ -8,6 +8,8 @@ class ICommand
 {
 
 public:
+	virtual ~ICommand(){}
+
 	virtual std::string execute(const std::vector<std::string>& params, bool *flag) = 0;
 	
 };

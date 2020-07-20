@@ -5,6 +5,8 @@ class IGUI
 {
 
 public:
+	virtual ~IGUI(){}
+
 	virtual void executeCommands() = 0;
 };
 

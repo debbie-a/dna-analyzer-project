@@ -16,6 +16,6 @@ public:
 
 private:
 	static std::map<size_t, std::string> mapIdToName;
-	static std::map<const std::string, SharedPtr<DNAData>> mapNameToDNAData;
+	static std::map<const std::string, SharedPtr<DNAData> > mapNameToDNAData;
 };
 #endif /* __DNA_COLLECTION_H__*/

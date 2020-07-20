@@ -3,6 +3,7 @@
 #include "../../Model/DNA/dna_collection.h"
 #include "../utils.h"
 #include "invalid_arguments.h"
+#include "../../Model/DNA/invalid_dna_data.h"
 
 
 
@@ -18,7 +19,23 @@ std::string New::execute(const std::vector<std::string>& params, bool *flag)
 	//a name was given
 	if(params.size() == 2)
 	{
+
 		name = getName(params[1]);
+		
+		//names must be unique. check if name already exists
+		try
+		{
+
+			DNACollection::getDNA(name);
+			throw InvalidArguments("invalid name. name already exists");
+
+
+		}
+		catch(InvalidDNAData& e)
+		{
+			//do nothing... name is unique
+		}
+
 	}
 
 	//one parameter was sent. need to create default name

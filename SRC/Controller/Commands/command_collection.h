@@ -10,14 +10,17 @@
 #include "icommand.h"
 #include "../shared_pointer.h"
 
+
 class CommandCollection
 {
 
 public:
+
 	static SharedPtr<ICommand> getCommand(const std::string& command);
 
 private:
-	static std::map<const std::string, SharedPtr<ICommand>> commandMap;
+	
+	static std::map<const std::string, SharedPtr<ICommand> > commandMap;
 };
 
 

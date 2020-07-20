@@ -2,7 +2,7 @@
 #include "invalid_command.h"
 
 
-std::map<const std::string, SharedPtr<ICommand>> CommandCollection::commandMap = 
+std::map<const std::string, SharedPtr<ICommand> > CommandCollection::commandMap = 
 {
 	{"load", SharedPtr<ICommand>(new Load)},
 	{"new", SharedPtr<ICommand>(new New)},
