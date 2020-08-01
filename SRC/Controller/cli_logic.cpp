@@ -1,12 +1,13 @@
 #include <sstream>
 #include <cstring>
-#include "command_line.h"
+#include "cli_logic.h"
 #include "Commands/invalid_command.h"
 #include "Commands/invalid_arguments.h"
 #include "Commands/command_collection.h"
 #include "utils.h"
 
-void CommandLine::executeCommands()
+
+void CliLogic::executeCommands()
 {
 	bool flag = true;
 	while(flag)
@@ -21,19 +22,19 @@ void CommandLine::executeCommands()
 			output = (CommandCollection::getCommand(std::string(vec[0])))->execute(params, &flag);
 
 			if(output != "")
-				m_writer->write(output);
+				m_viewer->print(output);
 		}
 		catch(InvalidCommand& e)
 		{
-			m_writer->write(e.what());
+			m_viewer->print(e.what());
 		}
 		catch(InvalidArguments& e)
 		{
-			m_writer->write(e.what());
+			m_viewer->print(e.what());
 		}
 		catch(std::runtime_error& e)
 		{
-			m_writer->write(e.what());
+			m_viewer->print(e.what());
 		}
 
 	}

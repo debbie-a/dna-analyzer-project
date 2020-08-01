@@ -1,18 +1,17 @@
-#include "Controller/controller.h"
 #include "Model/Read/console_reader.h"
-#include "Model/Write/console_writer.h"
 #include "Model/Read/file_reader.h"
-#include "Model/Write/file_writer.h"
-#include "Controller/command_line.h"
+#include "Controller/controller.h"
+#include "Controller/cli_logic.h"
 
 
 int main()
 {
 	SharedPtr<IRead> reader(new ConsoleReader);
-	SharedPtr<IWrite> writer(new ConsoleWriter);
-	SharedPtr<IGUI> gui(new CommandLine(reader, writer));
+	SharedPtr<IView> viewer(new CLI);
+	SharedPtr<IViewLogic> viewLogic(new CliLogic(viewer, reader));
 	
-	Controller controller(gui);
+
+	Controller controller(viewLogic);
 
 	controller.run();
 	controller.shutDown();

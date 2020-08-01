@@ -4,28 +4,28 @@
 #include <iostream>
 #include <vector>
 #include <map>
-#include "command_line.h"
+#include "cli_logic.h"
 
 class Controller
 {
 
 public:
-	Controller(const SharedPtr<IGUI>& gui);
+	Controller(const SharedPtr<IViewLogic>& viewLogic);
 
 	void run();
 	void shutDown() const;
 
 private:
-	SharedPtr<IGUI> m_gui;
+	SharedPtr<IViewLogic> m_viewLogic;
 };
 
-inline Controller::Controller(const SharedPtr<IGUI>& gui):m_gui(gui)
+inline Controller::Controller(const SharedPtr<IViewLogic>& viewLogic):m_viewLogic(viewLogic)
 {
 }
 
 inline void Controller::run()
 {
-	m_gui->executeCommands();
+	m_viewLogic->executeCommands();
 }
 
 inline void Controller::shutDown() const

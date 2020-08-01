@@ -10,7 +10,6 @@ class DNAData
 {
 public:
 	DNAData(std::string sequence, std::string name);
-	DNAData(std::fstream& fileName, std::string name);
 
 	SharedPtr<DNASequence> getDNASeq() const;
 	std::string getName() const;
@@ -24,11 +23,6 @@ private:
 };
 
 inline DNAData::DNAData(std::string sequence, std::string name):m_dnaSeq(new DNASequence(sequence)),m_name(name),m_id(idCounter)
-{
-	idCounter++;
-}
-
-inline DNAData::DNAData(std::fstream& fileName, std::string name):m_dnaSeq(new DNASequence(fileName)),m_name(name),m_id(idCounter)
 {
 	idCounter++;
 }
