@@ -1,4 +1,4 @@
-# dna-analyzer-project-d-a-mby
+# dna-analyzer-project
 
 
 DNA Analyzer System
