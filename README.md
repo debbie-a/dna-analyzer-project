@@ -2,10 +2,13 @@
 
 
 DNA Analyzer System
+
 Goal
+
 The goal of the system is to load, analyze, manipulate and save DNA sequences.
 
 Description
+
 DNA sequences are composed of four types of nucleotides; 
 
 The nucleotides are marked A (Adenine), G (Guanine), C (Cytosine) and T (Thymine).
