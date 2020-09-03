@@ -29,16 +29,6 @@ The system will interact with the user through a CLI (Command Line Interface) th
 
 Run the following command in the Linux Terminal:
 ```
-
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
 g++ main.cpp Model/DNA/*.cpp View/*.cpp Controller/*.cpp Controller/Commands/*.cpp
-
 ```
-
-
 
