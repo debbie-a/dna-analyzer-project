@@ -1,10 +1,10 @@
 # DNA Analyzer System
 
-# Goal:
+## Goal:
 
 The goal of the system is to load, analyze, manipulate and save DNA sequences.
 
-# Description:
+## Description:
 
 DNA sequences are composed of four types of nucleotides; 
 
