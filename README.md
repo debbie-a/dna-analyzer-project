@@ -18,7 +18,27 @@ Three successive nucleotides generate a codon, which might be chemically "read" 
 
 The system will interact with the user through a CLI (Command Line Interface) that uses the standard I/O. Using that interface, the user will be able to load DNA sequences from files, to analyze them, to manipulate them (e.g., by extracting sequence slices or by modifying the sequence), and to store modified sequences and reports.
 
+## Getting Started
 
+### Dependencies
+
+* C++ (98 and onwards)
+* Linux
+
+### Executing program
+
+Run the following command in the Linux Terminal:
+```
+
+```
+
+## Help
+
+Any advise for common problems or issues.
+```
+g++ main.cpp Model/DNA/*.cpp View/*.cpp Controller/*.cpp Controller/Commands/*.cpp
+
+```
 
 
 
