@@ -1,14 +1,21 @@
 #ifndef __GUI_H__
 #define __GUI_H__
 
-#include "iview.h"
+#include "ui.h"
 
-class GUI : public IView
+//TODO implement a gui
+
+class GUI : public UI
 {
-
 public:
 
-	/*virtual*/ void print(const std::string& stringToView);
+	/*virtual*/ void run(const Callback<Controller>&);
+
+	/*virtual*/ void show(const std::string&) const;
+
+        /*virtual*/ std::string readInput() const;
+
+        /*virtual*/ Args processInput(const std::string&) const;
 };
 
 #endif /*__GUI_H__*/

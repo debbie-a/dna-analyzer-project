@@ -1,75 +1,25 @@
-#include <string>
-#include <sstream>
 #include "save.h"
+#include "../Utils/utils.h"
 #include "../../Model/DNA/dna_collection.h"
-#include "../../Model/Write/file_writer.h"
-#include "../../Model/DNA/invalid_dna_data.h"
-#include "invalid_arguments.h"
+#include "../../MyLibrary/Write/file_writer.h"
 
-std::string Save::execute(const std::vector<std::string>& params, bool *flag)
+
+std::string Save::execute(SharedPtr<IParams> params)
 {
-	//invalid number of arguments
-	if(params.size() == 0 || params.size() > 2)
-		throw InvalidArguments("invalid number of arguments");
+        static const std::string PRODUCT_FOLDER = "Product/Internals/Saved/";
 
-	std::string fileName;
-	SharedPtr<DNAData> dnaData;
+	// get the dnaSeq which needs to be saved
+	SharedPtr<DNAData> dnaData = Utils::getDnaDataFromInput(params->m_params[0]);
 	
-	//a file name was given
-	if(params.size() == 2)
-	{
-		size_t i = params[1].find(".");
-
-		if(i == std::string::npos)
-			throw InvalidArguments("invalid file name");
-
-		fileName = params[1];
-	}
-
-	//find the dnaSeq which needs to be saved
-	if(params[0][0] == '#')
-	{	
-		size_t id;
-		std::stringstream ss;
-		std::string tmp(params[0].begin() + 1, params[0].end());
-		ss <<  tmp;
-		ss >> id;
-
-		try
-		{
-			dnaData = DNACollection::getDNA(id);
-		}
-		catch(InvalidDNAData& e)
-		{
-			return e.what();
-		}
-
-	}
-	else if(params[0][0] == '@')
-	{
-		std::string name(params[0].begin() + 1, params[0].end());
-		try
-		{
-			dnaData = DNACollection::getDNA(name);
-		}
-		catch(InvalidDNAData& e)
-		{
-			return e.what();
-		}
-	}
-	else 
-	{
-		throw InvalidArguments("invalid input");
-	}
-	
-	//one parameter was sent. need to create file name out of seq name
-	if(params.size() == 1)
-		fileName = dnaData->getName() + ".rawdna";
-	
-	//writing to file
-	SharedPtr<IWrite> writer(new FileWriter(fileName));
+	// writing to file
+	SharedPtr<IWrite> writer(new FileWriter(PRODUCT_FOLDER + params->m_params[1]));
 	writer->write((dnaData->getDNASeq())->getSequenceAsString());
 	
 	return "";
+}
+
+std::string Save::getInfo()
+{
+	return "\nSave DNA Sequences To File\nUser enters by name or ID a sequence to be saved to file.\nThe sequence is either saved in a file that user specified or in a default file name created according to name of sequence.\n";
 }
 

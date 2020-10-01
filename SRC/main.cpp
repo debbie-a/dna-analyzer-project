@@ -1,17 +1,12 @@
-#include "Model/Read/console_reader.h"
-#include "Model/Read/file_reader.h"
 #include "Controller/controller.h"
-#include "Controller/cli_logic.h"
+#include "View/cli.h"
 
 
 int main()
 {
-	SharedPtr<IRead> reader(new ConsoleReader);
-	SharedPtr<IView> viewer(new CLI);
-	SharedPtr<IViewLogic> viewLogic(new CliLogic(viewer, reader));
+	SharedPtr<UI> ui(new CLI);
 	
-
-	Controller controller(viewLogic);
+	Controller controller(ui);
 
 	controller.run();
 	controller.shutDown();

@@ -7,8 +7,9 @@ class Quit : public ICommand
 {
 
 public:
-	/*virtual*/std::string execute(const std::vector<std::string>& params, bool *flag);
+	/*virtual*/std::string execute(SharedPtr<IParams>);
 
+	/*virtual*/std::string getInfo();
 };
 
 

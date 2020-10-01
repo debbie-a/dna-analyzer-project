@@ -1,30 +1,14 @@
-#include <cstdio>
-#include <iostream>
 #include "quit.h"
-#include "invalid_arguments.h"
+#include "../Utils/utils.h"
 
-std::string Quit::execute(const std::vector<std::string>& params, bool *flag)
+
+std::string Quit::execute(SharedPtr<IParams> params)
 {
-	std::cout << "Please confirm by 'y' or 'Y', or cancel by 'n' or 'N'." << std::endl;
-	while(true)
-	{
-		std::string input;
-		std::cout << " > confirm >>> " ;
-		getline(std::cin, input);
-		if(input == "n" || input == "N")
-		{
-			return "";
-		}
-		if(input == "y" || input == "Y")
-		{
-			*flag = false;
-			return "Thank you for using Dnalanyzer.\nGoodbye!";
-		}
-		else
-		{
-			std::cout << "You have typed an invalid response. Please either confirm by 'y'/'Y', or cancel by 'n'/'N'." << std::endl;
-		}
-	}
-	
+        return Utils::confirmation(m_reader, m_writer) ? "Thank you for using Dnanalyzer.\nGoodbye!" : "";
+}
+
+std::string Quit::getInfo()
+{
+	return "\nQuits the Dnanalyzer System\nAsks if he is sure he wants to quit, user must confirm with a 'y'/'Y' to quit or 'n'/'N' to cancel quitting.\n";
 }
 

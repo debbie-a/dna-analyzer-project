@@ -6,16 +6,18 @@
 #include <list>
 #include <iostream>
 #include <fstream>
-#include "invalid_nucleotide.h"
+#include "../../MyLibrary/Exceptions/invalid_nucleotide.h"
+
 
 static bool isValidNucleotide(char type)
 {
-	const std::string nucleotide = "AGCT";
+	const std::string nucleotide = "AGCTagct";
 	return nucleotide.find(type) == std::string::npos ? false:true;
 }
 
 class DNASequence
 {
+
 private:
 	class NucleotideType 
 	{
@@ -54,6 +56,7 @@ public:
 	size_t count(const std::string&) const;
 	std::list<size_t> findAll(const std::string&) const;
 	std::list<DNASequence> findConsensusSequences() const;
+
 	
 };
 
@@ -61,10 +64,10 @@ inline DNASequence::DNASequence(const std::string &sequence):m_sequence(new Nucl
 {
 	try
 	{
-		for(size_t i=0; i < sequence.length(); i++)
+		for (size_t i = 0; i < sequence.length(); i++)
 			m_sequence[i] = sequence.c_str()[i];
 	}
-	catch(InvalidNucleotide& e)
+	catch (InvalidNucleotide& e)
 	{
 		delete[] m_sequence;
 		m_sequence = NULL;
@@ -76,7 +79,7 @@ inline DNASequence::DNASequence(const char *sequence):m_sequence(sequence != NUL
 {	
 	try
 	{
-		for(size_t i=0; i < strlen(sequence); i++)
+		for(size_t i = 0; i < strlen(sequence); i++)
 			m_sequence[i] = sequence[i];
 	}
 	catch(InvalidNucleotide& e)
@@ -107,7 +110,7 @@ inline DNASequence::DNASequence(std::fstream& myfile):m_sequence(NULL),m_length(
 	m_length = sequenceFromFile.length();
 	try
 	{
-		for(size_t i=0; i < sequenceFromFile.length(); i++)
+		for(size_t i = 0; i < sequenceFromFile.length(); i++)
 			m_sequence[i] = sequenceFromFile[i];
 	}
 	catch(InvalidNucleotide& e)
@@ -177,6 +180,7 @@ inline DNASequence::NucleotideType& DNASequence::operator[](size_t index)
 
 	return m_sequence[index];
 }
+
 inline void DNASequence::writeToFile(const std::string &fileName)
 {
 	std::ofstream myfile;
@@ -194,17 +198,17 @@ inline void DNASequence::writeToFile(const std::string &fileName)
 
 inline DNASequence DNASequence::slice(long int start, long int end)
 {
-	if(start < 0)
+	if (start < 0)
 		start = getLength() + start;
 
-	if(end < 0 )
+	if (end < 0)
 		end = getLength() + end;
 
-	if(((size_t)end > getLength()) || ((size_t)start >= getLength()) || (start > end))
+	if (((size_t)end > getLength()) || ((size_t)start >= getLength()) || (start > end))
 		throw std::out_of_range("bad index error");
 
 	std::string slicedSequence;
-	for(size_t i = start; i < (size_t)end; i++)
+	for (size_t i = start; i < (size_t)end; i++)
 		slicedSequence += m_sequence[i]; 
        
 	return DNASequence(slicedSequence);		
@@ -215,23 +219,26 @@ inline DNASequence DNASequence::pair()
 {
 	std::string pairedSequence;
 	for(size_t i = getLength(); i > 0; i--)
-		pairedSequence += m_sequence[i-1].getNucleotidePair(); 
+		pairedSequence += m_sequence[i - 1].getNucleotidePair(); 
 
 	return DNASequence(pairedSequence);
 }
 
-inline size_t DNASequence::find(const std::string& subSequence, size_t startIndex=0)const
+inline size_t DNASequence::find(const std::string& subSequence, size_t startIndex = 0) const
 {
-	for(size_t i= startIndex; i < getLength()-subSequence.length()+1; i++)
+	if (subSequence.length() > getSequenceAsString().length())
+		return std::string::npos;
+
+	for(size_t i = startIndex; i < getLength()- subSequence.length() + 1; i++)
 	{
 		DNASequence tmp = getSequenceAsString();
-		if(tmp.slice(i,i+subSequence.length()).getSequenceAsString() == subSequence)
-
+		if (tmp.slice(i, i + subSequence.length()).getSequenceAsString() == subSequence)
 			return i;
 	}
 
 	return std::string::npos;
 }
+
 inline size_t DNASequence::count(const std::string& subSequence) const
 {
 	return findAll(subSequence).size();
@@ -239,17 +246,19 @@ inline size_t DNASequence::count(const std::string& subSequence) const
 
 inline DNASequence::NucleotideType::NucleotideType(char type):m_type(type)
 {
-	if(isValidNucleotide(type) == false)
+	if (isValidNucleotide(type) == false)
 	{
 		throw InvalidNucleotide();
 	}
 }
+
 inline DNASequence::NucleotideType::NucleotideType():m_type('\0')
 {
 }
+
 inline DNASequence::NucleotideType& DNASequence::NucleotideType::operator=(char type)
 {
-	if(isValidNucleotide(type) == false)
+	if (isValidNucleotide(type) == false)
 	{
 		throw InvalidNucleotide();
 	}
@@ -270,8 +279,13 @@ inline char DNASequence::NucleotideType::getNucleotidePair() const
 	mapPairs['T'] = 'A';
 	mapPairs['G'] = 'C';
 	mapPairs['C'] = 'G';
+	mapPairs['a'] = 't';
+	mapPairs['t'] = 'a';
+	mapPairs['g'] = 'c';
+	mapPairs['c'] = 'g';
+	
 
-	return mapPairs[this->getType()];
+    return mapPairs[this->getType()];
 }
 
 inline DNASequence::NucleotideType::operator char()
@@ -290,7 +304,7 @@ inline std::ostream& operator<<(std::ostream& cout, const DNASequence& sequence)
 {
 	cout << sequence.getSequenceAsString();
 
-    	return cout;
+    return cout;
 }
 
 inline bool operator==(const DNASequence& sequence1, const DNASequence& sequence2)
@@ -300,7 +314,7 @@ inline bool operator==(const DNASequence& sequence1, const DNASequence& sequence
 
 inline bool operator!=(const DNASequence& sequence1, const DNASequence& sequence2)
 {
-	return !(sequence1 == sequence2);
+    return !(sequence1 == sequence2);
 }
 
 #endif /*__DNA_SEQUENCE_H__*/

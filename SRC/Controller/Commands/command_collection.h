@@ -1,28 +1,23 @@
 #ifndef __COMMAND_COLLECTION_H__
 #define __COMMAND_COLLECTION_H__
 
-#include <string>
-#include <map>
-#include "load.h"
-#include "save.h"
-#include "new.h"
-#include "quit.h"
+#include "../../MyLibrary/HashMap/hash_map.h"
+#include "../../MyLibrary/shared_pointer.h"
 #include "icommand.h"
-#include "../shared_pointer.h"
 
 
 class CommandCollection
 {
-
 public:
+	SharedPtr<ICommand> getCommand(const std::string&) const;
 
-	static SharedPtr<ICommand> getCommand(const std::string& command);
+	std::vector<std::string> getAllCommands() const;
 
 private:
-	
-	static std::map<const std::string, SharedPtr<ICommand> > commandMap;
-};
+	static HashMap<SharedPtr<ICommand> > commandMap;
 
+	static HashMap<SharedPtr<ICommand> > initializeCommands();
+};
 
 
 #endif /*__COMMAND_COLLECTION_H__*/

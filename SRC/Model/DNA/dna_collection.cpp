@@ -1,33 +1,89 @@
+#include <sstream>
 #include "dna_collection.h"
-#include "invalid_dna_data.h"
+#include "../../MyLibrary/Exceptions/invalid_dna_data.h"
 
 
-std::map<size_t, std::string> DNACollection::mapIdToName;
-std::map<const std::string, SharedPtr<DNAData> > DNACollection::mapNameToDNAData;
+HashMap<std::string> DNACollection::mapIdToName;
+HashMap<SharedPtr<DNAData> > DNACollection::mapNameToDNAData;
+
 
 void DNACollection::addDNA(SharedPtr<DNAData> dnaData)
 {
-	mapIdToName[dnaData->getID()] = dnaData->getName();
-	mapNameToDNAData[dnaData->getName()] = dnaData;
+	std::stringstream ss;
+	ss << dnaData->getID();
+	mapIdToName.insert(ss.str(), dnaData->getName());
+	mapNameToDNAData.insert(dnaData->getName(), dnaData);
+}
+
+void DNACollection::removeDNA(size_t id)
+{
+	try
+	{
+		std::stringstream ss;
+		ss << id;
+		std::string name = mapIdToName[ss.str()];
+		mapNameToDNAData.remove(name);
+		mapIdToName.remove(ss.str());
+
+	}
+	catch(const HashException &e)
+	{
+		throw InvalidDNAData();
+	}
+	
+}
+
+void DNACollection::removeDNA(const std::string &name)
+{
+	try
+	{
+		std::stringstream ss;
+		ss << (mapNameToDNAData[name]->getID());
+		mapIdToName.remove(ss.str());	
+		mapNameToDNAData.remove(name);
+		
+	}
+	catch(const HashException &e)
+	{
+		throw InvalidDNAData();
+	}
+	
 }
 
 SharedPtr<DNAData> DNACollection::getDNA(size_t id)
 {
-	if (!mapIdToName.count(id))
-		throw InvalidDNAData();
 
-	return mapNameToDNAData[mapIdToName[id]];
+	try
+	{
+		std::stringstream ss;
+		ss << id;
+		SharedPtr<DNAData> dnaData = mapNameToDNAData[mapIdToName[ss.str()]];
+
+		return dnaData;
+	}
+	catch(const HashException &e)
+	{
+		throw InvalidDNAData();
+	}
+	
 }
 
-SharedPtr<DNAData> DNACollection::getDNA(std::string name)
+SharedPtr<DNAData> DNACollection::getDNA(const std::string &name)
 {
-	if (!mapNameToDNAData.count(name))
-		throw InvalidDNAData();
+	try
+	{
+		SharedPtr<DNAData> dnaData = mapNameToDNAData[name];
 
-	return mapNameToDNAData[name];
+		return dnaData;
+	}
+	catch(const HashException &e)
+	{
+		throw InvalidDNAData();
+	}
+
 }
 /*
-void DNACollection::setDNA(size_t id, DNAData* dnaData)
+void DNACollection::setDNA(size_t id, SharedPtr<DNAData> dnaData)
 {
 	
 }*/
