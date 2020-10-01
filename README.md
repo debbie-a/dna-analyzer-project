@@ -1,5 +1,10 @@
 # DNA Analyzer System
 
+An extensive OOP project, with the goal of creating a software for
+manipulating DNA sequences. Designed to handle very large amounts
+of memory efficiently. A combination of Design Patterns and efficient
+data structures using C++
+
 ## Goal:
 
 The goal of the system is to load, analyze, manipulate and save DNA sequences.
@@ -29,6 +34,13 @@ The system will interact with the user through a CLI (Command Line Interface) th
 
 Run the following command in the Linux Terminal:
 ```
-g++ main.cpp Model/DNA/*.cpp View/*.cpp Controller/*.cpp Controller/Commands/*.cpp
+ g++ -ansi -pedantic -Wall -Wconversion main.cpp Model/DNA/*.cpp Controller/Commands/*.cpp  View/*.cpp MyLibrary/HashMap/*.cpp Controller/*.cpp -o Product/dnanalyzer
 ```
+
+followed by:
+
+```
+Product/dnanalyzer
+```
+
 
